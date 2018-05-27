@@ -4,6 +4,7 @@
 import json
 import re
 import requests
+from pymongo import MongoClient
 
 
 def get_city(province='河南'):
@@ -12,7 +13,7 @@ def get_city(province='河南'):
     :param province: 需要获取城市的省份
     :return:返回包含每个城市信息的列表,格式为[{"city":"郑州", "url":"http://zz....."},{}]
     """
-    base_url = 'http://{}.ganji.com/gongsi/'  # 用来构造城市对应的url
+    base_url = 'http://3g.ganji.com/{}_gongsi/P1/?ajax=1'  # 用来构造城市对应的url
     url = 'http://sta.ganjistatic1.com/public/app/ms/changecity/index.cmb.js'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
@@ -48,5 +49,17 @@ def get_city(province='河南'):
         f.write(json.dumps(city_list, indent=2, ensure_ascii=False))
     return city_list
 
+
+def test_job2ganji_phone():
+    client = MongoClient()
+    collection1 = client.ganji.test_job
+    c2 = client.ganji.ganji_phone
+
+    cursor = collection1.find({})
+    for item in cursor:
+        c2.insert(item)
+
+
 if __name__ == '__main__':
-    get_city()
+    # get_city('河南')
+    test_job2ganji_phone()
