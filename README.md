@@ -1,5 +1,5 @@
 ### 运行顺序
-- 先运行utils中的get_city,传入省份信息,得到省内包含的市的信息,存入json文件中
+- 先运行utils中的get_city,传入省份信息,得到省内包含的市的信息,存入json文件中（本代码仅实现河南一地的数据）
 - 运行name=ganji的爬虫,爬取完成,数据存储在ganji_phone(数据最终存储位置)集合中,公司信息item存储在job_detail集合中
 - 调用name=job的爬虫,如果出现重定向,即被反爬,代码终止,数据存储在test_job集合中(可改代码直接存到ganji_phone)
 - 在log中查看最后请求失败的url,在浏览器打开进行验证
